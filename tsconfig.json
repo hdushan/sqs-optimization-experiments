@@ -20,9 +20,15 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./*", "lib/*", "lambda/*", "node_modules/*"]
+    }
   },
   "exclude": [
     "node_modules",
