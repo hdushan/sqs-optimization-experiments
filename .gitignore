@@ -1,7 +1,9 @@
 *.js
 !jest.config.js
+!test/performance/**/*.js
 *.d.ts
 node_modules
+node_modules.tar.gz
 
 # CDK asset staging directory
 .cdk.staging

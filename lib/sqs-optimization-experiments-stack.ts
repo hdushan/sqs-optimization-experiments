@@ -28,11 +28,15 @@ export class SqsOptimizationExperimentsStack extends cdk.Stack {
       architecture: lambda.Architecture.ARM_64,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'logger.handler',
-      timeout: cdk.Duration.seconds(30),
+      timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE
     })
 
-    const eventSource = new lambdaEventSources.SqsEventSource(queue)
+    const eventSource = new lambdaEventSources.SqsEventSource(queue, {
+      batchSize: 10,
+      maxBatchingWindow: cdk.Duration.seconds(5),
+      reportBatchItemFailures: true
+    })
     logger_lambda.addEventSource(eventSource)
 
     const stack = cdk.Stack.of(this)
