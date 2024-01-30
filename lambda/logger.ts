@@ -26,7 +26,6 @@ export const handler = async (event: { Records: any[]; }, context: any) => {
     console.log('batchItemFailures')
     console.log(batchItemFailures)
     return {
-        statusCode: 200,
-        body: JSON.stringify({ batchItemFailures }),
+        batchItemFailures,
     }
 }
