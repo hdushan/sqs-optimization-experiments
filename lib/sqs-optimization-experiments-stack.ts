@@ -34,7 +34,8 @@ export class SqsOptimizationExperimentsStack extends cdk.Stack {
 
     const eventSource = new lambdaEventSources.SqsEventSource(queue, {
       batchSize: 10,
-      maxBatchingWindow: cdk.Duration.seconds(5),
+      // maxBatchingWindow: cdk.Duration.seconds(5),
+      maxBatchingWindow: cdk.Duration.seconds(0),
       reportBatchItemFailures: true
     })
     logger_lambda.addEventSource(eventSource)

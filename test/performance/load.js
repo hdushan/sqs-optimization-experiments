@@ -3,11 +3,23 @@ import { AWSConfig, SQSClient } from 'https://jslib.k6.io/aws/0.11.0/sqs.js'
 
 export const options = {
     stages: [
-      { duration: '10s', target: 10 },
-      { duration: '10s', target: 10 },
-      { duration: '10s', target: 0 },
+      { duration: '30s', target: 10 },
+      { duration: '180s', target: 10 },
+      { duration: '30s', target: 0 },
     ],
 }
+
+// export const options = {
+//     discardResponseBodies: true,
+//     scenarios: {
+//       contacts: {
+//         executor: 'shared-iterations',
+//         vus: 10,
+//         iterations: 10,
+//         maxDuration: '4s',
+//       },
+//     },
+//   };
 
 const awsConfig = new AWSConfig({
     region: __ENV.AWS_REGION,

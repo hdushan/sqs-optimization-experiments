@@ -4,6 +4,9 @@ import * as cdk from 'aws-cdk-lib';
 import { SqsOptimizationExperimentsStack } from '../lib/sqs-optimization-experiments-stack';
 
 const app = new cdk.App();
+const tags = {
+  'application:name': 'SqsOptimizationExperiments',
+}
 new SqsOptimizationExperimentsStack(app, 'SqsOptimizationExperimentsStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
@@ -18,4 +21,5 @@ new SqsOptimizationExperimentsStack(app, 'SqsOptimizationExperimentsStack', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+  tags,
 });
