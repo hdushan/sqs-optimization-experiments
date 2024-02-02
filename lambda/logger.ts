@@ -8,22 +8,21 @@ async function get_joke() {
 
 export const handler = async (event: { Records: any[] }, context: any) => {
   console.log(`Number of records in event: ${event.Records.length}`);
-  let i: number = 0;
-  const batchItemFailures = [];
+  const batchItemFailures: { ItemIdentifier: any }[] = [];
 
-  for (const record of event.Records) {
-    i = i + 1;
+  const promises = event.Records.map(async (record, index) => {
     try {
       const resp = await get_joke();
-      console.log(`Joke ${i}: ${resp.data.setup} : ${resp.data.punchline}`);
-      if (i % 3 == 0) {
-        throw `Intentional Error for record #${i}, messageId ${record.messageId}`;
+      console.log(`Joke ${index}: ${resp.data.setup} : ${resp.data.punchline}`);
+      if ((index + 1) % 3 == 0) {
+        throw `Intentional Error for record #${index}, messageId ${record.messageId}`;
       }
     } catch (error) {
       console.log(error);
       batchItemFailures.push({ ItemIdentifier: record.messageId });
     }
-  }
+  });
+  await Promise.allSettled(promises);
 
   console.log("batchItemFailures");
   console.log(batchItemFailures);
